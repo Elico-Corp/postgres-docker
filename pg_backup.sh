@@ -267,7 +267,7 @@ run_b() {
 
 		OF="$PGBACKUPDIR/$date_info-pg_db-$i.backup"
 
-                "$PGBINDIR/pg_dump" -i $backup_args $i > "$OF"
+                "$PGBINDIR/pg_dump" $backup_args $i > "$OF"
 
                 if [ "$backup_bzip2" = "yes" ]; then
 			bzip2 "$OF"
@@ -293,7 +293,7 @@ run_bv() {
                 OF="$PGBACKUPDIR/$date_info-pg_db-$i.backup"
  
                 "$PGBINDIR/vacuumdb" -U $PGUSER $i >/dev/null 2>&1
-                "$PGBINDIR/pg_dump" -i $backup_args $i > "$OF"
+                "$PGBINDIR/pg_dump" $backup_args $i > "$OF"
 
                 if [ "$backup_bzip2" = "yes" ]; then
 			bzip2 "$OF"
@@ -319,7 +319,7 @@ run_bva() {
                 OF="$PGBACKUPDIR/$date_info-pg_db-$i.backup"
  
                 "$PGBINDIR/vacuumdb" -z -U $PGUSER $i >/dev/null 2>&1
-                "$PGBINDIR/pg_dump" -i $backup_args $i > "$OF"
+                "$PGBINDIR/pg_dump" $backup_args $i > "$OF"
 
                 if [ "$backup_bzip2" = "yes" ]; then
 			bzip2 "$OF"
