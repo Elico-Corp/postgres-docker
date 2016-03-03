@@ -167,10 +167,10 @@ exclusions="postgres $PGUSER"
 #  +-- t = tar        : pg_restore -F t -d database backup_file
 #  +-- c = custom     : pg_restore -F c -d database backup_file
 #
-backup_format="t"
+backup_format="p"
 
 # Backup large objects
-backup_large_objects="yes"
+backup_large_objects="no"
 
 # bzip2 the backups
 backup_bzip2="yes"
