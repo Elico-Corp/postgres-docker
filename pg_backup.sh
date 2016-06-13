@@ -243,10 +243,10 @@ fi
 db_connectivity() {
         tmp=`echo "($exclusions)" | sed 's/\ /\|/g'`
         if [ "$exclusions" = "" ]; then
-                databases=`$PGBINDIR/psql -U $PGUSER --tuples-only -P format=unaligned -c "SELECT datname FROM pg_database WHERE NOT datistemplate" || echo "Database connection could not be established at $timeinfo"`
+                databases=`$PGBINDIR/psql -U $PGUSER --tuples-only -P format=unaligned -c "SELECT datname FROM pg_database WHERE NOT datistemplate"`
         else
                 # databases=`$PGBINDIR/psql -U $PGUSER -q -c "\l" template1 | sed -n 4,/\eof/p | grep -v rows\) | grep -Ev $tmp | awk {'print $1'} || echo "Database connection could not be established at $timeinfo"`
-                databases=`$PGBINDIR/psql -U $PGUSER --tuples-only -P format=unaligned -c "SELECT datname FROM pg_database WHERE NOT datistemplate" | grep -Ev $tmp || echo "Database connection could not be established at $timeinfo"`
+                databases=`$PGBINDIR/psql -U $PGUSER --tuples-only -P format=unaligned -c "SELECT datname FROM pg_database WHERE NOT datistemplate" | grep -Ev $tmp`
         fi
 }
  
@@ -440,9 +440,14 @@ print_configtest() {
         # Databases that will be backed up
         echo -n "Databases that will be backed up     : "
         echo ""
-        for i in $databases; do
-                echo "                                       $i"
-        done
+        if [ "$databases" = "" ]; then
+                echo "                                       none"
+        else
+                for i in $databases; do
+                        echo "                                       $i"
+                done
+                echo ""
+        fi
  
         # Databases that will not be backed up
         echo -n "Databases that will not be backed up :"
