@@ -1,4 +1,4 @@
-FROM postgres:9.5
+FROM postgres:11.2
 MAINTAINER Elico Corp <webmaster@elico-corp.com>
 RUN apt-get update && \
   apt-get install -y bzip2
